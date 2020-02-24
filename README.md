@@ -13,6 +13,29 @@ QQLight机器人WebSocket插件aardio扩展库
 >
 > WebSocket-RPC插件地址 https://github.com/Chocolatl/qqlight-websocket
 
+## 安装
+
+在线安装扩展库
+```
+import ide;
+import fsys; 
+import inet.downBox;
+import sevenZip.lzma;
+import fsys.untar;
+var url = "https://github.com/nlysh007/qqlight-websocket-aardio/releases/download/v1.0.0/qqlight.tar.lzma"; 
+var path = "~/download/lib/"; 
+var dl = inet.downBox(,"正在下载qqligt扩展库",true); 
+	if(dl.download(url,path++"qqlight.tar.lzma")){
+		sevenZip.lzma.decodeFile(path++"qqlight.tar.lzma",path++"qqlight.tar")
+		var tar = fsys.untar(path++"qqlight.tar");
+		for(fileName,writeSize,remainSize,pos in tar.eachBlock() ){
+			
+		} 
+		tar.close()
+		fsys.delete(path++"qqlight.tar")
+		ide.createThread(path++"qqlight/setup.dl.aardio")
+	}
+```
 ## 示例
 这是一个复读机（Echo）的aardiot示例
 
