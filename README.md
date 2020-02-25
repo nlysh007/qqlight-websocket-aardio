@@ -16,6 +16,7 @@ QQLight机器人WebSocket插件aardio扩展库
 ## 安装
 
 在线安装扩展库
+
 ```
 import ide;
 import fsys; 
@@ -37,7 +38,8 @@ var dl = inet.downBox(,"正在下载qqligt扩展库",true);
 	}
 ```
 ## 示例
-这是一个复读机（Echo）的aardiot示例
+
+这是一个复读机（Echo）的`aardio`示例
 
 ```
 import console; 
