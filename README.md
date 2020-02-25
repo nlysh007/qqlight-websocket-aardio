@@ -22,7 +22,7 @@ import fsys;
 import inet.downBox;
 import sevenZip.lzma;
 import fsys.untar;
-var url = "https://github.com/nlysh007/qqlight-websocket-aardio/releases/download/v1.0.0/qqlight.tar.lzma"; 
+var url = "https://github.com/nlysh007/qqlight-websocket-aardio/releases/latest/download/qqlight.tar.lzma"; 
 var path = "~/download/lib/"; 
 var dl = inet.downBox(,"正在下载qqligt扩展库",true); 
 	if(dl.download(url,path++"qqlight.tar.lzma")){
@@ -52,6 +52,10 @@ if(pluginPath==""){
 } 
 
 wsClient.connectByPluginPath(pluginPath) //通过qqlight的plugin目录路径来连接
+
+wsClient.onOpen = function(){
+    console.dump("已连接")
+}
 
 wsClient.onMessage = function(event,params){
     console.dump("收到消息",params)
