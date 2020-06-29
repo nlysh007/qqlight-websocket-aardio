@@ -29,23 +29,23 @@ class wsClient{
     			jsonData = ..web.json.stringify(data)
 			return jsonData;
 		} 
-		this.on("open",function(){
-			if(this["onOpen"]){
+		this.on("open",function(){			
+			if(type(this["onOpen"]) === type.function){
 				this["onOpen"]()
 			}
 		})
 		this.on("close",function(e){
-			if(this["onClose"]){
+			if(type(this["onClose"]) === type.function){
 				this["onClose"](e)
 			}
 		})
 		this.on("error",function(err){
-			if(this["onError"]){
+			if(type(this["onError"]) === type.function){
 				this["onError"](err)
 			}
-		})						
-		this.on("message",function(msg){
-		var eventTab = {
+		})
+		//事件表
+		this.eventTab = {
 				message = "onMessage";//事件.收到消息
 				friendRequest = "onFriendRequest";//事件.收到好友请求
 				friendChange = "onFriendChange";//事件.好友变动
@@ -54,13 +54,14 @@ class wsClient{
 				adminChange = "onAdminChange";//事件.群管理员变动
 				groupRequest = "onGroupRequest";//事件.加群请求
 				receiveMoney = "onReceiveMoney";//事件.收款
-		}; 
-		var data = ..web.json.parse(msg.data)
-		var event = eventTab[data.event];
-			if(event and type(this[event])===type.function){
-				this[event](data[["event"]],data[["params"]])
-			}
-    })	
+		}; 					
+		this.on("message",function(msg){
+			var data = ..web.json.parse(msg.data)
+			var event = this.eventTab[data.event];
+				if(type(this[event]) === type.function){
+					this[event](data[["event"]],data[["params"]])
+				}
+    	})	
 }
 	//通过 qqlight 的plugin目录的path来连接ws插件客户端
     connectByPluginPath = function(path){
