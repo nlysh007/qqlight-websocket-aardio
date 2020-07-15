@@ -11,6 +11,9 @@ import web.socket.jsonClient;
 import web.json;
 import fsys;
 namespace qqlight;
+var isFunction = function(param){
+	return (type(param) === type.function); 
+}; 
 class wsClient{
     ctor(){
 		this = ..web.socket.jsonClient();
@@ -30,17 +33,17 @@ class wsClient{
 			return jsonData;
 		} 
 		this.on("open",function(){			
-			if(type(this["onOpen"]) === type.function){
+			if(isFunction(this["onOpen"])){
 				this["onOpen"]()
 			}
 		})
 		this.on("close",function(e){
-			if(type(this["onClose"]) === type.function){
+			if(isFunction(this["onClose"])){
 				this["onClose"](e)
 			}
 		})
 		this.on("error",function(err){
-			if(type(this["onError"]) === type.function){
+			if(isFunction(this["onError"])){
 				this["onError"](err)
 			}
 		})
@@ -58,7 +61,7 @@ class wsClient{
 		this.on("message",function(msg){
 			var data = ..web.json.parse(msg.data)
 			var event = this.eventTab[data.event];
-				if(type(this[event]) === type.function){
+				if(isFunction(this[event])){
 					this[event](data[["event"]],data[["params"]])
 				}
     	})	
